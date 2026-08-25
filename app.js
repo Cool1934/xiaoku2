@@ -1,8 +1,8 @@
 // ========== 在这里添加你的音乐文件 ==========
 const MUSIC_FILES = [
-  { file: '战火燃烧(压声版).mp3', title: 'Song One', artist: 'Artist A' },
-  { file: '春庭雪(0.9x版DJ Wave版).mp3', title: 'Song Two', artist: 'Artist B' },
-  { file: '酷王（超然版）.mp3', title: 'Song Three', artist: 'Artist C' },
+  { file: '战火燃烧(压声版).mp3', title: 'ku小酷', artist: '战火燃烧(压声版)' },
+  { file: '春庭雪(0.9x版DJ Wave版).mp3', title: '邓寓君(等什么君)', artist: '春庭雪(0.9x版DJ Wave版)' },
+  { file: '酷王（超然版）.mp3', title: 'ku小酷', artist: '酷王（超然版）' },
   // 继续加... 格式: { file: 'music/xxx.mp3', title: '歌名', artist: '歌手' }
 ];
 // ==========================================
