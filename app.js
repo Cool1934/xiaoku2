@@ -1,13 +1,14 @@
 // ========== 在这里添加你的音乐文件 ==========
 const MUSIC_FILES = [
-  { file: '战火燃烧(压声版).mp3', title: '战火燃烧(压声版)', artist: 'ku小酷' },
-  { file: '春庭雪(0.9x版DJ Wave版).mp3', title: '春庭雪(0.9x版DJ Wave版)', artist: '邓寓君(等什么君)' },
-  { file: '酷王（超然版）.mp3', title: '酷王（超然版）', artist: 'ku小酷' },
+  { file: 'music/song1.mp3', title: 'Song One', artist: 'Artist A' },
+  { file: 'music/song2.mp3', title: 'Song Two', artist: 'Artist B' },
+  { file: 'music/song3.mp3', title: 'Song Three', artist: 'Artist C' },
   // 继续加... 格式: { file: 'music/xxx.mp3', title: '歌名', artist: '歌手' }
 ];
 // ==========================================
 
 const audio = new Audio();
+audio.preload = 'metadata'; // 仅预加载元数据，减少内存/流量，避免卡顿
 let currentIndex = 0;
 let isPlaying = false;
 let shuffleMode = false;
@@ -27,24 +28,70 @@ const titleEl = document.getElementById('title');
 const artistEl = document.getElementById('artist');
 const vinyl = document.getElementById('vinyl');
 const playlistEl = document.getElementById('playlist');
+const searchInput = document.getElementById('search');
 
-// 初始化
-function init() {
-  renderPlaylist();
-  loadTrack(0);
-  audio.volume = 0.8;
+// ---------- rAF 节流：把高频 DOM 写操作合并到一帧 ----------
+let rafScheduled = false;
+let pendingProgress = null; // { value, currentText, durationText }
+
+function scheduleProgressUpdate(value, currentText, durationText) {
+  pendingProgress = { value, currentText, durationText };
+  if (rafScheduled) return;
+  rafScheduled = true;
+  requestAnimationFrame(flushProgressUpdate);
 }
 
+function flushProgressUpdate() {
+  rafScheduled = false;
+  if (!pendingProgress) return;
+  const { value, currentText, durationText } = pendingProgress;
+  // 仅值变化时写入，避免无效重绘
+  if (progress.value !== value) progress.value = value;
+  if (currentTimeEl.textContent !== currentText) currentTimeEl.textContent = currentText;
+  if (durationEl.textContent !== durationText) durationEl.textContent = durationText;
+  pendingProgress = null;
+}
+
+// ---------- 播放列表渲染 ----------
 function renderPlaylist() {
   playlistEl.innerHTML = '';
   MUSIC_FILES.forEach((track, i) => {
     const li = document.createElement('li');
+    li.dataset.title = track.title.toLowerCase();
+    li.dataset.artist = track.artist.toLowerCase();
     li.textContent = `${track.title} — ${track.artist}`;
     li.onclick = () => { loadTrack(i); if (!isPlaying) togglePlay(); };
     playlistEl.appendChild(li);
   });
 }
 
+// ---------- 搜索（按歌曲名 + 歌手名） ----------
+function applySearch() {
+  const q = searchInput.value.trim().toLowerCase();
+  let visibleCount = 0;
+  [...playlistEl.children].forEach(li => {
+    if (li.classList.contains('no-result')) return;
+    const match = !q || li.dataset.title.includes(q) || li.dataset.artist.includes(q);
+    li.classList.toggle('hidden', !match);
+    if (match) visibleCount++;
+  });
+  // 无结果提示
+  let tip = playlistEl.querySelector('.no-result');
+  if (visibleCount === 0) {
+    if (!tip) {
+      tip = document.createElement('li');
+      tip.className = 'no-result';
+      tip.textContent = '没有找到匹配的歌曲';
+      playlistEl.appendChild(tip);
+    }
+  } else if (tip) {
+    tip.remove();
+  }
+}
+
+searchInput.addEventListener('input', applySearch);
+
+// ---------- 加载/播放控制 ----------
 function loadTrack(index) {
   currentIndex = index;
   const track = MUSIC_FILES[index];
@@ -52,8 +99,9 @@ function loadTrack(index) {
   titleEl.textContent = track.title;
   artistEl.textContent = track.artist;
 
-  // 高亮列表
+  // 高亮当前曲目
   [...playlistEl.children].forEach((li, i) => {
+    if (li.classList.contains('no-result')) return;
     li.classList.toggle('active', i === index);
   });
 
@@ -88,7 +136,7 @@ function prevTrack() {
   if (isPlaying) audio.play().catch(() => {});
 }
 
-// 事件
+// ---------- 事件绑定 ----------
 playBtn.onclick = togglePlay;
 
 audio.onplay = () => {
@@ -112,12 +160,11 @@ audio.onended = () => {
   }
 };
 
+// 进度更新（已通过 rAF 节流，避免频繁 DOM 写入导致卡顿）
 audio.ontimeupdate = () => {
-  if (audio.duration) {
-    progress.value = (audio.currentTime / audio.duration) * 100;
-    currentTimeEl.textContent = formatTime(audio.currentTime);
-    durationEl.textContent = formatTime(audio.duration);
-  }
+  if (!audio.duration) return;
+  const ratio = (audio.currentTime / audio.duration) * 100;
+  scheduleProgressUpdate(ratio, formatTime(audio.currentTime), formatTime(audio.duration));
 };
 
 progress.oninput = () => {
@@ -154,6 +201,13 @@ function formatTime(s) {
   const m = Math.floor(s / 60);
   const sec = Math.floor(s % 60);
   return `${m}:${sec.toString().padStart(2, '0')}`;
+}
+
+// ---------- 初始化 ----------
+function init() {
+  renderPlaylist();
+  loadTrack(0);
+  audio.volume = 0.8;
 }
 
 init();

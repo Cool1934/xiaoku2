@@ -5,6 +5,9 @@ body {
   color: #fff;
   min-height: 100vh;
   overflow-x: hidden;
+  /* 启用 GPU 合成，减少主线程负担 */
+  -webkit-font-smoothing: antialiased;
+  transform: translateZ(0);
 }
 
 .bg {
@@ -26,7 +29,8 @@ body {
 /* 播放器卡片 */
 .player-card {
   background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 24px;
   padding: 32px 24px;
@@ -34,6 +38,8 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  /* 限定合成层，避免整页重绘 */
+  contain: layout style;
 }
 
 /* 黑胶唱片 */
@@ -47,6 +53,8 @@ body {
   align-items: center;
   justify-content: center;
   transition: border-color 0.3s;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .vinyl.playing {
@@ -72,8 +80,8 @@ body {
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from { transform: rotate(0deg) translateZ(0); }
+  to { transform: rotate(360deg) translateZ(0); }
 }
 
 /* 信息 */
@@ -94,6 +102,7 @@ body {
 #progress {
   flex: 1;
   -webkit-appearance: none;
+  appearance: none;
   height: 4px;
   border-radius: 2px;
   background: rgba(255,255,255,0.2);
@@ -152,6 +161,7 @@ body {
 #volume {
   flex: 1;
   -webkit-appearance: none;
+  appearance: none;
   height: 4px;
   border-radius: 2px;
   background: rgba(255,255,255,0.2);
@@ -169,10 +179,12 @@ body {
 /* 播放列表 */
 .playlist-card {
   background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 20px;
   padding: 20px;
+  contain: layout style;
 }
 
 .playlist-card h3 {
@@ -181,10 +193,36 @@ body {
   opacity: 0.8;
 }
 
+/* 搜索框 */
+.search-wrap {
+  margin-bottom: 12px;
+}
+
+#search {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+#search::placeholder { color: rgba(255,255,255,0.35); }
+
+#search:focus {
+  border-color: rgba(233,69,96,0.6);
+  background: rgba(255,255,255,0.1);
+}
+
 #playlist {
   list-style: none;
   max-height: 200px;
   overflow-y: auto;
+  /* 移动端流畅滚动 */
+  -webkit-overflow-scrolling: touch;
 }
 
 #playlist li {
@@ -204,6 +242,18 @@ body {
   color: #f27121;
 }
 
+#playlist li.hidden {
+  display: none;
+}
+
+/* 无结果提示 */
+.no-result {
+  padding: 14px;
+  text-align: center;
+  font-size: 0.85rem;
+  opacity: 0.5;
+}
+
 /* 滚动条 */
 #playlist::-webkit-scrollbar { width: 4px; }
 #playlist::-webkit-scrollbar-track { background: transparent; }
@@ -212,4 +262,9 @@ body {
 @media (max-width: 480px) {
   .app { padding: 20px 12px; }
   .vinyl { width: 140px; height: 140px; }
+}
+
+/* 弱设备降级：关闭模糊背景，避免严重卡顿 */
+@media (prefers-reduced-motion: reduce) {
+  .vinyl { animation: none !important; }
 }
