@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Music</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="app">
+    <div class="player-card">
+      <!-- 唱片 -->
+      <div class="vinyl" id="vinyl">
+        <div class="vinyl-inner">
+          <div class="vinyl-label"></div>
+        </div>
+      </div>
+
+      <!-- 歌曲信息 -->
+      <div class="info">
+        <h2 id="title">选择一首歌</h2>
+        <p id="artist">—</p>
+      </div>
+
+      <!-- 进度条 -->
+      <div class="progress-wrap">
+        <span id="current-time">0:00</span>
+        <input type="range" id="progress" min="0" max="100" value="0">
+        <span id="duration">0:00</span>
+      </div>
+
+      <!-- 控制按钮 -->
+      <div class="controls">
+        <button id="shuffle" title="随机">&#128256;</button>
+        <button id="prev">&#9198;</button>
+        <button id="play" class="play-btn">&#9654;</button>
+        <button id="next">&#9197;</button>
+        <button id="loop" title="循环">&#128257;</button>
+      </div>
+
+      <!-- 音量 -->
+      <div class="volume-wrap">
+        <span>&#128266;</span>
+        <input type="range" id="volume" min="0" max="100" value="80">
+      </div>
+    </div>
+
+    <!-- 播放列表 -->
+    <div class="playlist-card">
+      <h3>播放列表</h3>
+      <ul id="playlist"></ul>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
