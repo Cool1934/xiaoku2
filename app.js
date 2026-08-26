@@ -1,7 +1,7 @@
 // ========== 在这里添加你的音乐文件 ==========
 const MUSIC_FILES = [
   { file: '战火燃烧(压声版).mp3', title: '战火燃烧(压声版)', artist: 'ku小酷', lyricFile:'战火燃烧(压声版).lrc' },
-  { file: '谢谢有你.mp3', title: '谢谢有你', artist: 'ku小酷', lyricFile:'小酷输出 1.lrc' },
+  { file: '谢谢有你.mp3', title: '谢谢有你', artist: '豌拜集团', lyricFile:'小酷输出 1.lrc' },
   { file: '酷王（超然版）.mp3', title: '酷王（超然版）', artist: 'ku小酷', lyricFile:'酷王（超然版）.lrc' },
   { file: '御剑挥刀在出战(超燃版).mp3', title: '御剑挥刀在出战(超燃版)', artist: '夜魔', lyricFile:'御剑挥刀在出战(超燃版).lrc' },
   // 继续加... 格式: { file: 'music/xxx.mp3', title: '歌名', artist: '歌手'}
