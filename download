@@ -1,0 +1,2 @@
+# 把你的 .mp3 音乐文件放在这里，然后在 app.js 的 MUSIC_FILES 里添加对应条目即可。
+# 可选：放 .lrc 歌词文件，在 MUSIC_FILES 里用 lyricFile 字段引用。

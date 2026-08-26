@@ -3,63 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>音酷音乐</title>
+  <title>My Music</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- 顶部缓冲进度条 -->
+  <div class="buffer-bar" id="buffer-bar">
+    <div class="buffer-bar-fill" id="buffer-bar-fill"></div>
+    <div class="buffer-bar-text" id="buffer-bar-text">加载中 0%</div>
+  </div>
+
   <div class="bg"></div>
+
   <div class="app">
     <div class="player-card">
-      <!-- 唱片 -->
+      <!-- 黑胶唱片 -->
       <div class="vinyl" id="vinyl">
-        <div class="vinyl-inner">
-          <div class="vinyl-label"></div>
-        </div>
+        <div class="vinyl-inner"><div class="vinyl-label"></div></div>
       </div>
+
+      <!-- 状态提示（加载中/缓冲中/自适应降级） -->
+      <div class="status" id="status"></div>
 
       <!-- 歌曲信息 -->
       <div class="info">
         <h2 id="title">选择一首歌</h2>
         <p id="artist">—</p>
-        <div class="load-status" id="load-status"></div>
-      </div>
-
-      <!-- 滚动歌词 -->
-      <div class="lyric-panel" id="lyric-panel">
-        <div class="lyric-scroll" id="lyric-scroll"></div>
       </div>
 
       <!-- 进度条 -->
       <div class="progress-wrap">
-        <span id="current-time">0:00</span>
-        <input type="range" id="progress" min="0" max="100" value="0">
-        <span id="duration">0:00</span>
+        <span class="buffered-badge" id="buffered-badge">已缓冲 0%</span>
+        <div class="progress-track">
+          <input type="range" id="progress" min="0" max="100" value="0">
+          <span class="progress-tooltip" id="progress-tooltip">已缓冲 0:00 / 0:00</span>
+        </div>
       </div>
+      <div class="buffered-text" id="buffered-text">已缓冲 0:00 / 0:00</div>
 
       <!-- 控制按钮 -->
       <div class="controls">
-        <button id="shuffle" title="随机">&#128256;</button>
-        <button id="prev">&#9198;</button>
-        <button id="play" class="play-btn">&#9654;</button>
-        <button id="next">&#9197;</button>
-        <button id="loop" title="循环">&#128257;</button>
+        <button id="shuffle" title="随机">🔀</button>
+        <button id="prev">⏮</button>
+        <button id="play" class="play-btn">▶</button>
+        <button id="next">⏭</button>
+        <button id="loop" title="循环">🔁</button>
       </div>
 
       <!-- 音量 -->
       <div class="volume-wrap">
-        <span>&#128266;</span>
+        <span>🔊</span>
         <input type="range" id="volume" min="0" max="100" value="80">
+      </div>
+
+      <!-- 预加载模式开关 -->
+      <div class="preload-wrap">
+        <span class="preload-label">预加载</span>
+        <div class="preload-switch" id="preload-switch" title="点击切换：自动 / 全量 / 流式">
+          <div class="preload-options">
+            <span data-mode="auto" class="active">自动</span>
+            <span data-mode="full">全量</span>
+            <span data-mode="stream">流式</span>
+          </div>
+          <div class="preload-thumb" id="preload-thumb"></div>
+        </div>
       </div>
     </div>
 
     <!-- 播放列表 -->
     <div class="playlist-card">
-      <h3>播放列表</h3>
-      <!-- 搜索框 -->
-      <div class="search-wrap">
-        <input type="text" id="search" placeholder="搜索歌曲 / 歌手...">
+      <div class="playlist-head">
+        <h3>播放列表</h3>
+        <input type="text" id="search" placeholder="🔍 搜索歌曲 / 歌手">
       </div>
       <ul id="playlist"></ul>
+    </div>
+
+    <!-- 歌词面板 -->
+    <div class="lyric-card">
+      <h3>歌词</h3>
+      <div class="lyric-panel" id="lyric-panel">
+        <div class="lyric-empty">暂无歌词</div>
+      </div>
     </div>
   </div>
 
