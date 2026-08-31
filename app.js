@@ -2,6 +2,7 @@
 const MUSIC_FILES = [
   { file: '解散名门.mp3', title: '解散名门', artist: '鹿崽' },
   { file: '战火燃烧(压声版).mp3', title: '战火燃烧(压声版)', artist: 'ku小酷', lyricFile:'战火燃烧(压声版).lrc' },
+  { file: '山风山风等等我.mp3', title: '山风山风等等我', artist: '万海东', lyricFile:'山风山风等等我 - 万海东.lrc' },
   { file: '解散四个家族_缩混.mp3', title: '解散四个家族', artist: 'ku小酷', lyricFile:'解散四个家族.lrc' },
   { file: '谢谢有你.mp3', title: '谢谢有你', artist: '豌拜集团', lyricFile:'小酷输出 1.lrc' },
   { file: '酷王（超然版）.mp3', title: '酷王（超然版）', artist: 'ku小酷', lyricFile:'酷王（超然版）.lrc' },
