@@ -3,6 +3,7 @@ const MUSIC_FILES = [
   { file: '梦的翅膀受了伤.mp3', title: '梦的翅膀受了伤', artist: '蒋雪儿Snow.J', lyricFile:'梦的翅膀受了伤 - 蒋雪儿Snow.J.lrc' },
   { file: '解散名门.mp3', title: '解散名门', artist: '鹿崽' },
   { file: '战火燃烧(压声版).mp3', title: '战火燃烧(压声版)', artist: 'ku小酷', lyricFile:'战火燃烧(压声版).lrc' },
+  { file: '十年戎马心孤单.mp3', title: '十年戎马心孤单', artist: '夜魔', lyricFile:'十年戎马心孤单.lrc' },
   { file: 'M800000BP2ix0jnPo0.mp3', title: '山风山风等等我', artist: '万海东', lyricFile:'山风山风等等我 - 万海东.lrc' },
   { file: '解散四个家族_缩混.mp3', title: '解散四个家族', artist: 'ku小酷', lyricFile:'解散四个家族.lrc' },
   { file: '谢谢有你.mp3', title: '谢谢有你', artist: '豌拜集团', lyricFile:'小酷输出 1.lrc' },
