@@ -3,6 +3,7 @@ const MUSIC_FILES = [
   { file: '梦的翅膀受了伤.mp3', title: '梦的翅膀受了伤', artist: '蒋雪儿Snow.J', lyricFile:'梦的翅膀受了伤 - 蒋雪儿Snow.J.lrc' },
   { file: '解散名门.mp3', title: '解散名门', artist: '鹿崽' },
   { file: 'xiaokuyy/我曾十步杀一人.mp3', title: '我曾十步杀一人', artist: '夜魔', lyricFile:'xiaokuyy/我曾十步杀一人 - 夜魔.lrc' },
+  { file: 'xiaokuyy/一夜寒风起 人间又一冬.mp3', title: '一夜寒风起 人间又一冬', artist: '草原兄弟', lyricFile:'xiaokuyy/一夜寒风起 人间又一冬 - 草原兄弟.lrc' },
   { file: 'xiaokuyy/叹雪.mp3', title: '叹雪', artist: '大帅|春绪', lyricFile:'xiaokuyy/叹雪 - 大帅&春绪.lrc' },
   { file: '战火燃烧(压声版).mp3', title: '战火燃烧(压声版)', artist: 'ku小酷', lyricFile:'战火燃烧(压声版).lrc' },
   { file: '十年戎马心孤单.mp3', title: '十年戎马心孤单', artist: '夜魔', lyricFile:'十年戎马心孤单.lrc' },
