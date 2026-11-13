@@ -1,7 +1,6 @@
 // ========== 在这里添加你的音乐文件 ==========
 const MUSIC_FILES = [
   { file: '梦的翅膀受了伤.mp3', title: '梦的翅膀受了伤', artist: '蒋雪儿Snow.J', lyricFile:'梦的翅膀受了伤 - 蒋雪儿Snow.J.lrc' },
-  { file: 'xiaokuyy/东北(特别版) - 夜魔&大帅.mp3', title: '东北(特别版)', artist: 夜魔&大帅', lyricFile:'xiaokuyy/东北(特别版) - 夜魔&大帅.lrc' },
   { file: 'xiaokuyy/东北(特别版) - 夜魔.mp3', title: '东北(特别版)', artist: '夜魔', lyricFile:'xiaokuyy/东北(特别版) - 夜魔.lrc' },
   { file: '解散名门.mp3', title: '解散名门', artist: '鹿崽' },
   { file: 'xiaokuyy/人间情.mp3', title: '人间情', artist: 'ku小酷' },
